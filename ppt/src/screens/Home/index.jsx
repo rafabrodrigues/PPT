@@ -18,6 +18,9 @@ export default function Home() {
   const [optionPlayer1, setOptionPlayer1] = useState(0);
   const [optionPlayer2, setOptionPlayer2] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+  const [scorePlayer1, setScorePlayer1] = useState(0);
+  const [scorePlayer2, setScorePlayer2] = useState(0);
+
   const handleGame = (id) => {
     const player1Option = opcoes[id];
     const generatedOption = generateOption();
@@ -41,11 +44,13 @@ export default function Home() {
       case "1-2":
       case "2-0":
         setStatusGame("Você perdeu!");
+        setScorePlayer2(scorePlayer2 + 1);
         break;
       case "0-2":
       case "1-0":
       case "2-1":
         setStatusGame("Você ganhou!");
+        setScorePlayer1(scorePlayer1 + 1);
         break;
       default:
         console.log("Opção inválida");
@@ -80,10 +85,11 @@ export default function Home() {
         </TouchableOpacity>
       </OptionsContainer>
       <PlayerContainer>
-        <AvatarPlayer source={require("../../../assets/players/player2.jpg")}  />
+        <AvatarPlayer source={require("../../../assets/players/player2.jpg")} />
         <Title $color={"#fff "} $size="22px">
           {`Jogador2 (Bot)`}
         </Title>
+
       </PlayerContainer>
       <ResultModal
         modalVisible={modalVisible}
@@ -92,6 +98,9 @@ export default function Home() {
         optionPlayer1={optionPlayer1}
         optionPlayer2={optionPlayer2}
       />
-    </Container>
+      <Title $color={"#fff"} $size={'18px'}>Placar</Title>
+      <Title $color={"#fff"} $size={'18px'}>Jogador 1: {scorePlayer1}</Title>
+      <Title $color={"#fff"} $size={'18px'}>Jogador 2: {scorePlayer2}</Title>
+    </Container >
   );
 }
